@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MtI-SN-eR1">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LocationApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rj2-wy-jr2">
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
+                            </mapView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d1d-1r-gGX">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <color key="barTintColor" red="0.1791178537" green="0.75306408920000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <items>
+                                    <navigationItem title="Current Location" id="ecZ-tm-zfo">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="CurrentLocation" id="6RM-kM-5CK">
+                                            <connections>
+                                                <action selector="moveToCurrent:" destination="BYZ-38-t0r" id="1Jg-NM-Z4Y"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="+" id="ksQ-H7-xUy"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="rj2-wy-jr2" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="8V1-Sx-ZcK"/>
+                            <constraint firstItem="rj2-wy-jr2" firstAttribute="top" secondItem="d1d-1r-gGX" secondAttribute="bottom" id="REe-bp-ijG"/>
+                            <constraint firstItem="d1d-1r-gGX" firstAttribute="trailing" secondItem="rj2-wy-jr2" secondAttribute="trailing" id="ROx-Hw-2Zr"/>
+                            <constraint firstItem="rj2-wy-jr2" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Sxw-DK-N4Z"/>
+                            <constraint firstItem="rj2-wy-jr2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WHQ-gW-ELr"/>
+                            <constraint firstItem="d1d-1r-gGX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jHi-7g-mUB"/>
+                            <constraint firstItem="d1d-1r-gGX" firstAttribute="leading" secondItem="rj2-wy-jr2" secondAttribute="leading" id="xaO-5s-BFX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="wQH-aY-9Es"/>
+                    <connections>
+                        <outlet property="addGeoButton" destination="ksQ-H7-xUy" id="Gwq-9v-4EU"/>
+                        <outlet property="currentButton" destination="6RM-kM-5CK" id="PFf-4m-fUk"/>
+                        <outlet property="mapView" destination="rj2-wy-jr2" id="mCq-kV-Ivr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="857" y="134"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ORF-la-BjX">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MtI-SN-eR1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FPA-O6-O7c">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="tE9-0Y-JB8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EeM-YS-I1j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="CurrentLocation" width="15" height="15"/>
+    </resources>
+</document>
