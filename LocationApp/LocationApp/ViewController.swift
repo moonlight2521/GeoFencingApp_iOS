@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import UserNotifications
 
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
@@ -33,16 +34,42 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager.startUpdatingLocation()
         
         moveToCurrent(currentButton)
+        
         coordinate = CLLocationCoordinate2DMake(37.545765, -77.448982)
         radius = 50.0
+        
         geoFenceRegion = CLCircularRegion(center: coordinate, radius: radius, identifier: "Cross Section")
+        
         addRadiusOverlay(coordinate: coordinate, radius: radius)
+        
         locationManager.startMonitoring(for: geoFenceRegion)
+        
+    
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {didAllow, error in
+        })
 
     }
     
     @IBAction func moveToCurrent(_ sender: Any) {
         print("pressed current location button")
+        //creating the notification content
+        let content = UNMutableNotificationContent()
+        
+        //adding title, subtitle, body and badge
+        content.title = "Hey this is Simplified iOS"
+        content.subtitle = "iOS Development is fun"
+        content.body = "We are learning about iOS Local Notification"
+        content.badge = 1
+        
+        //getting the notification trigger
+        //it will be called after 5 seconds
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        
+        //getting the notification request
+        let request = UNNotificationRequest(identifier: "SimplifiedIOSNotification", content: content, trigger: trigger)
+        
+        //adding the notification to notification center
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let currentLocation = locations[0]
@@ -58,7 +85,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         print("enter \(region.identifier)")
+
     }
+    
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         print("exit \(region.identifier)")
@@ -84,5 +113,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+
 }
 
