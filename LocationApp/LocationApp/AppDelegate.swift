@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,8 +22,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         
-        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
-        UIApplication.shared.cancelAllLocalNotifications()
+//        application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
+//        UIApplication.shared.cancelAllLocalNotifications()
+//
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            // Enable or disable features based on authorization.
+            if !granted {
+                print("Something went wrong")
+            }
+        }
         
         if (launchOptions != nil) {
             NSLog("got remote notification here!")
@@ -38,11 +47,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UIApplication.shared.applicationState == .active {
            // let message = "message"
             window?.rootViewController?.showAlert(withTitle: nil, message: message)
+            
         } else {
-            // Otherwise present a local notification
-            let notification = UILocalNotification()
-            notification.soundName = "Default"
-            UIApplication.shared.presentLocalNotificationNow(notification)
+            // Otherwise push a local notification badge
+//            let notification = UILocalNotification()
+//            notification.soundName = "Default"
+//            UIApplication.shared.presentLocalNotificationNow(notification)
+//
+            let content = UNMutableNotificationContent()
+            content.title = NSString.localizedUserNotificationString(forKey: "Statues:", arguments: nil)
+            content.body = NSString.localizedUserNotificationString(forKey: "stuff here!", arguments: nil)
+            content.sound = UNNotificationSound.default()
+            content.badge = UIApplication.shared.applicationIconBadgeNumber + 1 as NSNumber;
+            content.categoryIdentifier = "categoryId"
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+            let request = UNNotificationRequest(identifier: content.categoryIdentifier, content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: { (error) in
+                // Handle error
+            })
+            
         }
         
     }

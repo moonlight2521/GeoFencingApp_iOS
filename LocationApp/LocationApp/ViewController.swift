@@ -51,25 +51,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     @IBAction func moveToCurrent(_ sender: Any) {
-        print("pressed current location button")
-        //creating the notification content
-        let content = UNMutableNotificationContent()
-        
-        //adding title, subtitle, body and badge
-        content.title = "Hey this is Simplified iOS"
-        content.subtitle = "iOS Development is fun"
-        content.body = "We are learning about iOS Local Notification"
-        content.badge = 1
-        
-        //getting the notification trigger
-        //it will be called after 5 seconds
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        
-        //getting the notification request
-        let request = UNNotificationRequest(identifier: "SimplifiedIOSNotification", content: content, trigger: trigger)
-        
-        //adding the notification to notification center
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+  
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let currentLocation = locations[0]
@@ -101,7 +83,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if overlay is MKCircle {
             let circleRenderer = MKCircleRenderer(overlay: overlay)
             circleRenderer.lineWidth = 1.0
-            circleRenderer.strokeColor = .purple
+            circleRenderer.strokeColor = .red
             circleRenderer.fillColor = UIColor.purple.withAlphaComponent(0.4)
             return circleRenderer
         }
